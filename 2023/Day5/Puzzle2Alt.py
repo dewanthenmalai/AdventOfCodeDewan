@@ -122,6 +122,3 @@ seedValues = [getSeedFromLocation(x, maps) for x in boundaries]
 validSeeds = list(filter(lambda x: inSet(x, seedSets), seedValues))
 validLocations = [int(getLocationFromSeed(x, maps)) for x in validSeeds]
 print(min(validLocations))
-
-answerLocation = '56931769'
-answerSeed = getSeedFromLocation(answerLocation, maps)
