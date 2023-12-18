@@ -21,8 +21,6 @@ def calcMinLoss(input):
         minNode = min(heap, key=lambda x: x[0])
         cost, pos, dir, chain = minNode
         heap.remove(minNode)
-        #cost, pos, dirChain = min(heap, key=lambda x: x[0])
-        #heap.remove((cost,pos,dirChain))
         for turn in range(-1,2):
             if turn == 0:
                 if chain == 3: continue
