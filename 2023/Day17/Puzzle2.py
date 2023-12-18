@@ -14,26 +14,27 @@ def calcMinLoss(input):
     
     #heap is a list of tuples containing a cost, positiontuple , and tuple containing the travel direction and "straight line" length
     #visited is similar, except without the cost
-    heap = [(0,(0,0),(0,0))]
-    visited = {((0,0),(0,0))}
+    heap = [(0,(0,0),0,0)]
+    visited = {((0,0),0,0)}
     
     while heap:
-        cost, pos, dirChain = min(heap, key=lambda x: x[0])
-        heap.remove((cost,pos,dirChain))
+        minNode = min(heap, key=lambda x: x[0])
+        cost, pos, dir, chain = minNode
+        heap.remove(minNode)
         for turn in range(-1,2):
             if turn == 0:
-                if dirChain[1] == 10: continue
-                else: chain = dirChain[1] + 1
+                if chain == 10: continue
+                else: newChain = chain + 1
             else:
-                chain = 1
-                if dirChain[1] < 4: continue
-            newDir = (dirChain[0]+turn)%4
+                newChain = 1
+                if chain < 4: continue
+            newDir = (dir+turn)%4
             newPos = tupAdd(pos,dirs[newDir])
-            if (newPos in grid) and ((newPos,(newDir,chain)) not in visited):
+            if (newPos in grid) and ((newPos,newDir,newChain) not in visited):
                 newCost = cost + grid[newPos]
-                if newPos == (x_max-1,y_max-1) and chain >= 4:
+                if newPos == (x_max-1,y_max-1) and newChain >= 4:
                     return newCost
-                visited.add((newPos,(newDir,chain)))
-                heap.append((newCost,newPos,(newDir,chain)))
+                visited.add((newPos,newDir,newChain))
+                heap.append((newCost,newPos,newDir,newChain))
 
 print(calcMinLoss(input))
