@@ -10,7 +10,7 @@ def evalWorkflowHelper(part, rules, rule):
         if ':' not in step:
             rv += evalWorkflow(part, rules, step)
             continue
-        condition, next_rule = step.split(':')
+        condition, nextRule = step.split(':')
         attr = condition[0]
         attrVal = part[attr]
         rel = condition[1]
@@ -19,7 +19,7 @@ def evalWorkflowHelper(part, rules, rule):
         #determine if the rule applies 100%
         if (rel == '<' and attrVal[0] < val and attrVal[1] < val) or \
         (rel == '>' and attrVal[0] > val and attrVal[1] > val):
-            rv += evalWorkflow(part, rules, next_rule)
+            rv += evalWorkflow(part, rules, nextRule)
             break
 
         #check if the rule doesn't apply at all
@@ -28,15 +28,15 @@ def evalWorkflowHelper(part, rules, rule):
             continue
 
         #splitting case
-        modified_part = part.copy()
+        modifiedPart = part.copy()
         if rel == '<':
-            modified_part[attr] = (attrVal[0], val - 1)
+            modifiedPart[attr] = (attrVal[0], val - 1)
             part[attr] = (val, attrVal[1])
         else: #rel == '>'
-            modified_part[attr] = (val + 1, attrVal[1])
+            modifiedPart[attr] = (val + 1, attrVal[1])
             part[attr] = (attrVal[0], val)
 
-        rv += evalWorkflow(modified_part, rules, next_rule)
+        rv += evalWorkflow(modifiedPart, rules, nextRule)
     return rv
 
 def evalWorkflow(part, rules, rule):
