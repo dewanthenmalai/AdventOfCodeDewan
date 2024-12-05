@@ -1,1 +1,0 @@
-{'fh': <Pulse.LOW: 0>, 'mf': <Pulse.LOW: 0>, 'fz': <Pulse.LOW: 0>, 'ss': <Pulse.LOW: 0>}
